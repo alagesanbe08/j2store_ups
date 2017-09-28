@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="j2store" method="upgrade">
+	<name>UPS Shipping</name>
+	<version>2.5</version>
+	<creationDate>JUN 2017</creationDate>
+	<author>Alagesan</author>
+	<authorEmail>support@j2store.org</authorEmail>
+	<authorUrl>http://www.j2store.org</authorUrl>
+	<copyright>2017 Weblogicx India Private Limited</copyright>
+	<license>GNU General Public License v3 or later</license>
+	<description>PLG_J2STORE_SHIPPING_UPS_DESC</description>
+	<scriptfile>script.shipping_ups.php</scriptfile>
+	<files>
+		<filename plugin="shipping_ups">shipping_ups.php</filename>
+		<filename>index.html</filename>
+		<folder>fields</folder>
+		<folder>boxpacker</folder>
+	</files>
+	<languages folder="languages">
+		<language tag="en-GB">en-GB.plg_j2store_shipping_ups.ini</language>
+		<language tag="en-GB">en-GB.plg_j2store_shipping_ups.sys.ini
+		</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" label="basic">
+
+				<field name="ups_accesskey" type="text" size="10" default=""
+					label="J2STORE_UPS_ACCESS_KEY" description="J2STORE_UPS_ACCESS_KEY_DESC"
+					required="true" />
+
+				<field name="ups_userid" type="text" size="50" default=""
+					label="J2STORE_UPS_USERID" description="J2STORE_UPS_USERID_DESC"
+					required="true" />
+
+
+				<field name="ups_password" type="text" size="50" default=""
+					label="J2STORE_UPS_PASSWORD" description="J2STORE_UPS_PASSWORD_DESC"
+					required="true" />
+
+				<field name="shipper_number" type="text" size="50" default=""
+					label="J2STORE_UPS_SHIPPER_NUMBER" description="J2STORE_UPS_SHIPPER_NUMBER_DESC" />
+
+				<field name="packing_type" type="list" default="per_item"
+					   label="J2STORE_UPS_PACKING_TYPE" description="J2STORE_UPS_PACKING_TYPE_DESC">
+					<option value="per_item">J2STORE_UPS_PACK_PACK_INDIVIDUALLY</option>
+					<option value="box_packing">J2STORE_UPS_BOX_PACKING</option>
+				</field>
+
+				<field name="ups_box" type="list"  multiple="multiple"
+					label="J2STORE_UPS_DEFAULT_BOX" description="J2STORE_UPS_DEFAULT_BOX_DESC">
+					<option value="01">J2STORE_UPS_LETTER</option>
+					<option value="03">J2STORE_UPS_TUBE</option>
+					<option value="24">J2STORE_25KG_BOX</option>
+					<option value="25">J2STORE_10KG_BOX</option>
+					<option value="2a">J2STORE_EXPRESS_BOX_SMALL</option>
+					<option value="2b">J2STORE_EXPRESS_BOX_MEDIUM</option>
+					<option value="2c">J2STORE_EXPRESS_BOX_LARGE</option>
+				</field>
+
+				<field name="box_list" type="boxlist" size="30" default=""
+					label="J2STORE_UPS_BOX_LIST" description="J2STORE_UPS_BOX_LIST_DESC"
+					addfieldpath="/plugins/j2store/shipping_ups/fields/" />
+				
+				<field name="handling_cost" type="number" size="50" default="0"
+					label="J2STORE_UPS_HANDLING_COST" description="J2STORE_UPS_HANDLING_COST_DESC"
+					/>
+
+				<field name="send_insuredvalue" type="radio" default="1" class="btn-group"
+					   label="J2STORE_UPS_SEND_INSUREDVALUE" description="J2STORE_UPS_SEND_INSUREDVALUE_DESC">
+					<option value="0">J2STORE_NO</option>
+					<option value="1">J2STORE_YES</option>
+				</field>
+
+				<field name="residential" type="radio" default="0" class="btn-group"
+					   label="J2STORE_UPS_SEND_RESIDENTIAL" description="J2STORE_UPS_SEND_RESIDENTIAL_DESC">
+					<option value="0">J2STORE_NO</option>
+					<option value="1">J2STORE_YES</option>
+				</field>
+
+				<field name="negotiated" type="radio" default="0" class="btn-group"
+					   label="J2STORE_UPS_NEGOTIATED_RATE" description="J2STORE_UPS_NEGOTIATED_RATE_DESC">
+					<option value="0">J2STORE_NO</option>
+					<option value="1">J2STORE_YES</option>
+				</field>
+
+				<field name="delivery_confirm_type" type="list" default="DCR"
+					label="J2STORE_SHIPPING_DELIVERY_CONFIRM_TYPE" description="J2STORE_SHIPPING_DELIVERY_CONFIRM_TYPE_DESC">
+					<option value="1">J2STORE_NO_SIGNATORE</option>
+					<option value="2">J2STORE_SIGNATORE</option>
+					<option value="3">J2STORE_ADULT_SIGNATORE</option>
+				</field>
+<!--
+				<field name="deliver_indicator" type="radio" default="0"
+				 	label="J2STORE_SHIPPING_DIRECT_DELIVERY_INDICATOR" description="J2STORE_SHIPPING_DIRECT_DELIVERY_INDICATOR_DESC">
+				 	<option value="0">J2STORE_NO</option>
+					<option value="1">J2STORE_YES</option>
+
+				</field>
+				-->
+
+				<field name="ups_services" type="list" multiple="multiple"
+					size="10" default="" label="J2STORE_UPS_SERVICES" description="J2STORE_UPS_SERVICES_DESC">
+					<!-- Domestic -->
+					<option value="01">J2STORE_UPS_NEXT_DAY_AIR</option>
+					<option value="02">J2STORE_UPS_SECOND_DAY_AIR</option>
+					<option value="03">J2STORE_UPS_GROUND</option>
+					<option value="12">J2STORE_UPS_THREE-DAY_SELECT</option>
+					<option value="13">J2STORE_UPS_NEXT_DAY_AIR_SAVER</option>
+					<option value="14">J2STORE_UPS_NEXT_DAY_AIR_EARLY_AM</option>
+					<option value="59">J2STORE_UPS_SECOND_DAY_AIR_AM</option>
+					<!-- international -->
+					<option value="07">J2STORE_UPS_WORLDWIDE_EXPRESS</option>
+					<option value="08">J2STORE_UPS_WORLDWIDE_EXPEDITED</option>
+					<option value="11">J2STORE_UPS_STANDARD</option>
+					<option value="54">J2STORE_UPS_WORLDWIDE_EXPRESS_PLUS</option>
+					<option value="65">J2STORE_UPS_SAVER</option>					
+				</field>
+
+				<field name="pickup_type" type="list" default="01"
+					label="J2STORE_UPS_PICKUP_TYPE" description="J2STORE_UPS_PICKUP_TYPE_DESC">
+					<option value="01">J2STORE_DAILY_PICKUP</option>
+					<option value="03">J2STORE_CUSTOMER_COUNTER</option>
+					<option value="06">J2STORE_ONE_TIME_PICKUP</option>
+					<option value="07">J2STORE_ON_CALL_AIR</option>
+					<!--
+					<option value="11">J2STORE_SUGGESTED_RETAIL_RATES</option>
+					-->
+					<option value="19">J2STORE_LETTER_CENTER</option>
+					<option value="20">J2STORE_AIR_SERVICE_CENTER</option>
+				</field>
+
+				<field name="packaging" type="list" default="02"
+					label="J2STORE_PACKAGING_TYPE" description="J2STORE_PACKAGING_TYPE_DESC">
+					<option value="01">J2STORE_UPS_LETTER</option>
+					<option value="02">J2STORE_PACKAGE_CUSTOMER_SUPPLIED</option>
+					<option value="03">J2STORE_UPS_TUBE</option>
+					<option value="04">J2STORE_UPS_PAK</option>
+					<option value="21">J2STORE_EXPRESS_BOX</option>
+					<option value="24">J2STORE_25KG_BOX</option>
+					<option value="25">J2STORE_10KG_BOX</option>
+				</field>
+
+				<!--<field name="customer_classification" type="list" default="04"
+					label="J2STORE_CUSTOMER_CLASSIFICATION" description="J2STORE_CUSTOMER_CLASSIFICATION_DESC">
+					<option value="01">J2STORE_WHOLESALE</option>
+					<option value="03">J2STORE_OCCASIONAL</option>
+					<option value="04">J2STORE_RETAIL</option>
+				</field>-->
+				<field name="weight_note" type="customnotice"
+					default="" label="J2STORE_WEIGHT_NOTE" description="J2STORE_WEIGHT_NOTE_DESC"
+					addfieldpath="plugins/j2store/shipping_canadapostrest/fields" />
+
+				<field name="ups_weight_class_id" type="weightlist" default=""
+					label="J2STORE_WEIGHT_UNIT" description="J2STORE_WEIGHT_UNIT_DESC"
+					addfieldpath="/administrator/components/com_j2store/models/fields" />
+
+				<field name="show_weight" type="list" default="0"
+					label="J2STORE_SHIPPING_SHOW_WEIGHT" description="J2STORE_SHIPPING_SHOW_WEIGHT_DESC">
+					<option value="0">J2STORE_NO</option>
+					<option value="1">J2STORE_YES</option>
+				</field>
+
+
+				<field name="ups_length_class_id" type="lengthlist" default="2"
+					label="J2STORE_LENGTH_UNIT" description="J2STORE_LENGTH_UNIT_DESC"
+					addfieldpath="/administrator/components/com_j2store/models/fields" />
+
+				<field name="ups_tax_class_id" type="taxselect" default=""
+					label="J2STORE_SHIPPING_TAX_CLASS" description="J2STORE_SHIPPING_TAX_CLASS_DESC"
+					addfieldpath="plugins/content/j2store/j2store/fields" />
+
+				<field name="ups_geozone" type="geozonelist" default=""
+					label="J2STORE_SHIPPING_GEOZONE" description="J2STORE_SHIPPING_GEOZONE_DESC"
+					addfieldpath="/administrator/components/com_j2store/models/fields" />
+
+
+				<field name="debug" type="list" default="0"
+					label="J2STORE_SHIPPING_DEBUG_MESSAGES" description="J2STORE_SHIPPING_DEBUG_MESSAGES_DESC">
+					<option value="0">J2STORE_NO</option>
+					<option value="1">J2STORE_YES</option>
+				</field>
+
+			</fieldset>
+		</fields>
+	</config>
+</extension>
